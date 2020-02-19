@@ -1,0 +1,11 @@
+.mode column
+
+select * from customers where country in ("Japan","France","USA");
+
+select * from orderdetails where quantityOrdered between 21 and 99;
+
+select status from orders where customerNumber="124";
+
+select * from products where productLine="Motorcycles";
+
+select lastName from employees where officeCode="4";

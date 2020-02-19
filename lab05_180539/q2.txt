@@ -1,0 +1,108 @@
+.mode csv
+
+CREATE TABLE productlines(
+	productLine TEXT PRIMARY KEY,
+	textDescription TEXT,
+	htmlDescription TEXT,
+	image TEXT
+);
+
+.import productlines.csv productlines
+
+CREATE TABLE products(
+  "productCode" TEXT PRIMARY KEY,
+  "productName" TEXT,
+  "productLine" TEXT,
+  "productScale" TEXT,
+  "productVendor" TEXT,
+  "productDescription" TEXT,
+  "quantityInStock" TEXT,
+  "buyPrice" TEXT,
+  "MSRP " TEXT,
+  FOREIGN KEY(productLine) REFERENCES productlines(productLine)
+);
+
+.import products.csv products
+
+CREATE TABLE orders(
+  "orderNumber" TEXT PRIMARY KEY,
+  "orderDate" TEXT,
+  "requiredDate" TEXT,
+  "shippedDate" TEXT,
+  "status" TEXT,
+  "comments" TEXT,
+  "customerNumber" TEXT,
+  FOREIGN KEY(customerNumber) REFERENCES customers(customerNumber)
+);
+
+.import orders.csv orders
+
+CREATE TABLE payments(
+  "customerNumber" TEXT,
+  " checkNumber" TEXT PRIMARY KEY,
+  " paymentDate" TEXT,
+  " amount" TEXT,
+  FOREIGN KEY(customerNumber) REFERENCES customers(customerNumber)
+);
+
+.import payments.csv payments
+
+CREATE TABLE orderdetails(
+  "orderNumber" TEXT,
+  "productCode" TEXT,
+  "quantityOrdered" TEXT,
+  "priceEach" TEXT,
+  "orderLineNumber  " TEXT,
+  FOREIGN KEY(productCode) REFERENCES products(productCode),
+  FOREIGN KEY(orderNumber) REFERENCES orders(orderNumber)
+);
+
+.import orderdetails.csv orderdetails
+
+CREATE TABLE customers(
+  "customerNumber" TEXT PRIMARY KEY,
+  "customerName" TEXT,
+  "contactLastName" TEXT,
+  "contactFirstName" TEXT,
+  "phone" TEXT,
+  "addressLine1" TEXT,
+  "addressLine2" TEXT,
+  "city" TEXT,
+  "state" TEXT,
+  "postalCode" TEXT,
+  "country" TEXT,
+  "salesRepEmployeeNumber" TEXT,
+  "creditLimit" TEXT,
+  FOREIGN KEY(salesRepEmployeeNumber) REFERENCES employees(employeesNumber)
+);
+
+.import customers.csv customers
+
+CREATE TABLE employees(
+  "employeeNumber" TEXT PRIMARY KEY,
+  "lastName" TEXT,
+  "firstName" TEXT,
+  "extension" TEXT,
+  "email" TEXT,
+  "officeCode" TEXT,
+  "reportsTo" TEXT,
+  "jobTitle" TEXT,
+  FOREIGN KEY(officeCode) REFERENCES offices(officeCode),
+  FOREIGN KEY(reportsTo) REFERENCES employees(employeeNumber)
+);
+
+.import employees.csv employees
+
+CREATE TABLE offices(
+  "officeCode" TEXT PRIMARY KEY,
+  "city" TEXT,
+  "phone" TEXT,
+  "addressLine1" TEXT,
+  "addressLine2" TEXT,
+  "state" TEXT,
+  "country" TEXT,
+  "postalCode" TEXT,
+  "territory " TEXT
+);
+
+.import offices.csv offices

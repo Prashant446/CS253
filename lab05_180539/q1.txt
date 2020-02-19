@@ -1,0 +1,31 @@
+Table: productlines
+Candidate Keys: productLine
+Foreign Keys: 
+
+Table: products
+Candidate Keys: productCode, productName
+Foreign Keys: productLine references productLine in productlines
+
+Table: orderdetails
+Candidate Keys:
+Foreign Keys: productCode references productCode in products, orderNumber references orderNumber in orders
+
+Table: orders
+Candidate Keys: orderNumber
+Foreign Keys: customerNumber references customerNumber in customers
+
+Table: customers
+Candidate Keys: customerNumber
+Foreign Keys: salesRepEmployeeNumber references employeeNumber in employees
+
+Table: employees
+Candidate Keys: employeeNumber
+Foreign Keys: officeCode references officeCode in offices, reportsTo references employeeNumber in employees
+
+Table: offices
+Candidate Keys: officeCode
+Foreign Keys:
+
+Table: payments
+Candidate Keys: checkNumber
+Foreign Keys: customerNumber references customerNumber in customers
